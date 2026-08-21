@@ -1,0 +1,22 @@
+name: Import project
+on: push
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    if: github.event.head_commit.message == 'Add project importer'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import project bundle
+        run: |
+          git clone china-subreddit-stance-analyzer.bundle /tmp/project
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          rsync -a --exclude=.git /tmp/project/ ./
+          git config user.name yitian
+          git config user.email jsbach2276562632@gmail.com
+          git add -A
+          git commit -m "Final project submission"
+          git push origin HEAD:main
