@@ -1,0 +1,29 @@
+# Python environments and caches
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated application files
+.streamlit/secrets.toml
+
+# Large/generated project artifacts (not part of the reference submission)
+data/raw/
+data/processed/
+models/

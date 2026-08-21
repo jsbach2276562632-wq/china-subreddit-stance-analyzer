@@ -1,0 +1,27 @@
+How the Project Works
+
+
+Activate the venv and prepare the resources: 
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+Collect data: python python src/reddit_collector.py 
+
+Detect mentioning of regime: python src/detect_regime.py
+
+Sampling for manual labeling: python src/random_sampling_300.python
+
+Manually label stance: streamlit run src/manually_label_dashboard.py
+
+split the 300 for builiding training set: python src/merge_and_split.py (*if skip manual labeling, the begin there!!!!)
+
+Train models: python src/SVC_version/train_model_svc.py  (or python src/DistilBERT_version/train_model_distilbert.py)
+
+Predict full samples: python src/SVC_version/predict_10k_svc.py (or python src/DistilBERT_version/predict_10k_distilbert.py)
+
+Visualize results: streamlit run src/stance_dashboard.py
+
+the link to the video: https://cloud.uni-konstanz.de/index.php/f/227184428
+
+*for a successful push into Github, I removed the diestillbert models but kept its prediction.
