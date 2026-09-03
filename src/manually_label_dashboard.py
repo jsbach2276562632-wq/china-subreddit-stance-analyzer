@@ -5,13 +5,14 @@ import json
 
 from pathlib import Path
 
-#these part is copied from what I have written in assignment 3 /:3
-
 df = pd.read_json("data/labeling/label_sample.jsonl", lines=True)
 history = Path("data/labeling/manually_labeled_sample.json")
 
-st.title("Let's label the samples manually!")
-st.subheader("Now you will see a post from the sample. Assign them to one of four categories: positive, critical, neutral")
+st.title("Manual stance annotation")
+st.caption(
+    "Assign each sampled Reddit post to one of three stance categories: "
+    "positive, critical, or neutral."
+)
 
 if "tweets" not in st.session_state:
     st.session_state.tweets = df
@@ -33,7 +34,7 @@ all_num = len(tweets_id)
 done_num = len(labeled_id)
 to_label_num = len(unlabeled_id)
 
-st.write(f"{done_num} samples are already labeled, but there are still {to_label_num} to label. (total tweets: {all_num})")
+st.write(f"Completed: {done_num} | Remaining: {to_label_num} | Total: {all_num}")
 
 if to_label_num == 0:
     st.success("Finally!!! All samples are labeled.")

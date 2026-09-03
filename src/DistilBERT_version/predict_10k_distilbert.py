@@ -9,7 +9,7 @@ from transformers import DistilBertForSequenceClassification
 df = pd.read_csv("data/processed/reddit_with_mention_regime.csv")
 df["text"] = df["text"].astype(str)
 
-model_path = "models/distilbert/distilbert_simple"
+model_path = "models/distilbert"
 
 print("model path:", model_path)
 print("exists:", Path(model_path).exists())

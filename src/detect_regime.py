@@ -1,11 +1,11 @@
 import re
+from pathlib import Path
 import pandas as pd
 
 df = pd.read_csv("data/raw/raw_reddit.csv")
 df["text"] = df["text"].astype(str)
 
-# to operationalize the "mentioning china", we simply detect the use of these expressions (as far as I know they are sensitive in china lol)
-#this part I used chatgpt to help me organize the regular expression.....
+# Operationalize regime mentions through an explicit, reproducible keyword rule.
 mention_regime_pattern = re.compile(
     r"""
     (?ix)
@@ -50,12 +50,15 @@ mention_regime_pattern = re.compile(
     re.IGNORECASE | re.VERBOSE
 )
 
-def detect_text(t): #detect chinese regime pattern
+def detect_text(t):
     t = str(t)
     if mention_regime_pattern.search(t):
         return 1
     else:
         return 0
 
-df["mention_regime"] = df["text"].apply(detect_text) #apply the functiion to ALL text
-df.to_csv('data/processed/reddit_with_mention_regime.csv',index=False)
+df["mention_regime"] = df["text"].apply(detect_text)
+output_path = Path("data/processed/reddit_with_mention_regime.csv")
+output_path.parent.mkdir(parents=True, exist_ok=True)
+df.to_csv(output_path, index=False)
+print(f"Saved {len(df)} records to {output_path}")

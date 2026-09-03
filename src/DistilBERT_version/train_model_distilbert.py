@@ -55,8 +55,8 @@ train_encodings = tokenizer(
 test_encodings = tokenizer(
     test_texts,
     truncation=True,
-    padding=True, #fill the blank
-    max_length=256
+    padding=True,
+    max_length=128
 )
 
 
@@ -129,6 +129,4 @@ save_path = "models/distilbert"
 os.makedirs(save_path, exist_ok=True)
 model.save_pretrained(save_path)
 tokenizer.save_pretrained(save_path)
-#its saved path is /home/ytzhou/China_Project/models/distilbert/distilbert_simple
-
 print("model saved")

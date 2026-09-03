@@ -1,6 +1,6 @@
 import pandas as pd
-import joblib, os
-import numpy as np
+import joblib
+import os
 
 from sklearn.pipeline import Pipeline # using pipeline for Text Vectorization and classifier
 from sklearn.feature_extraction.text import TfidfVectorizer # vectorzation
@@ -41,5 +41,5 @@ print(confusion_matrix(y_test, pred, labels=["critical", "neutral", "positive"])
 
 #save model
 os.makedirs("models", exist_ok=True)
-joblib.dump(clf, "models/stance_lr.joblib")
-print("Saved: models/stance_lr.joblib") #forced execution of saving model
+joblib.dump(clf, "models/stance_svc.joblib")
+print("Saved: models/stance_svc.joblib")

@@ -3,11 +3,8 @@ import numpy as np
 import joblib
 
 # load the model and input (reddits with mention regime)
-clf = joblib.load("models/stance_lr.joblib")
+clf = joblib.load("models/stance_svc.joblib")
 df = pd.read_csv("data/processed/reddit_with_mention_regime.csv")
-
-# Confidence threshold, only accept predictions with higher threshold
-CO_TH = 0.45
 
 X = df["text"].fillna("").astype(str)
 
@@ -23,7 +20,7 @@ gap = sorted_scores[:, -1] - sorted_scores[:, -2]
 
 #write the result in to df
 df["predicted_label"] = pred
-df["score_gap"] = gap # "how better is the score we chosed compared to the second best alternative"
+df["score_gap"] = gap  # Margin between the best and second-best class scores.
 
 q = 0.30  # keep top 70% most confident. we need more labels.....
 TH = np.quantile(gap, q)
@@ -34,5 +31,5 @@ df["confident_label"] = np.where(df["score_gap"] >= TH, df["predicted_label"], "
 
 #save progress
 df.to_csv("data/processed/reddit_with_mention_regime_labeled.csv", index=False, encoding="utf-8")
-print("Saved: data/processed/reddit_with_mention_regime_SVC_abeled.csv")
+print("Saved: data/processed/reddit_with_mention_regime_labeled.csv")
 

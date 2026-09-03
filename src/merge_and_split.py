@@ -19,8 +19,9 @@ print("raw:", len(df_raw), "labels:", len(df_lab), "merged:", len(df))
 #split train and test set from merged manually labeled samples
 train_df, test_df = train_test_split(
     df,
-    test_size=0.2, #test set size is set to 20%
-    stratify=df["label"]
+    test_size=0.2,
+    stratify=df["label"],
+    random_state=42,
 )
 
 #save data

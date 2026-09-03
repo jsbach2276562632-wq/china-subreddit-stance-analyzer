@@ -20,9 +20,11 @@ def load_data():
 
 path_svc, path_distilbert = load_data()
 
-st.title("Reddit posts' stance toward China Analyzer")
-st.caption("Hi! In this study we collected posts from China-related subreddits and labeled them with their stances by training models." \
- "Here you can check the stance distributions under different China-related narrative: namely, are their stances different when  mention the PRC regime?")
+st.title("China-related Subreddit Stance Analyzer")
+st.caption(
+    "Explore predicted stance distributions in China-related subreddits and "
+    "compare posts that mention the PRC regime with those that do not."
+)
 
 model_choice = st.radio("Choose prediction model", ["SVC", "DistilBERT"], horizontal=True)
 
@@ -62,7 +64,10 @@ st.subheader("Sample size by regime mention")
 st.dataframe(sample_size, use_container_width=True)
 
 if (sample_size["n"] < 30).any():
-    st.warning("Some sample groups have very small sample sizes, espacially when you chosed only a few subreddits. Interpret results with caution.")
+    st.warning(
+        "Some groups have fewer than 30 posts, especially when only a few "
+        "subreddits are selected. Interpret these results with caution."
+    )
 
 plot_df = (
     filtered.groupby(["mention_regime_or_not", "predicted_label"])
